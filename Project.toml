@@ -1,4 +1,4 @@
-name = "telegram"
+name = "telegrambot"
 uuid = "a986135e-b92e-11e8-01b9-6d38a38c663b"
 authors = ["Moelf <jerryling315@gmail.com>"]
 version = "0.1.0"

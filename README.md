@@ -12,7 +12,7 @@ A julia wrapper for [telegram](https://telegram.im) api (mostly replying command
 
 
 ```julia
-import telegram, scryfall
+import telegrambot
 botApi = "<your_api_>"
 
 function welcomeMsg()
