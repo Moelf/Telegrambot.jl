@@ -16,7 +16,7 @@ import telegrambot
 botApi = "<your_api_>"
 
 function welcomeMsg()
-    return "Welcome to my awesome bot card look up bot"
+    return "Welcome to my awesome bot"
 end
 
 function echo(incoming::AbstractString)
@@ -27,5 +27,5 @@ txtCmds = Dict()
 txtCmds["repeat_msg"] = echo #this will respond to '/repeat_msg <any thing>'
 txtCmds["start"] = welcomeMsg # this will respond to '/start'
 
-telegram.startBot(botApi; textHandle = txtCmds)
+telegrambot.startBot(botApi; textHandle = txtCmds)
 ```

@@ -35,16 +35,22 @@ function startBot(botApi="";textHandle=Dict())
 
         for rawCmd in pendingList
             println(rawCmd) #deubg
-            cmdName = ""
-            cmdPara = ""
+            cmdName=" "
+            cmdPara = " "
             try
                 cmdName = string(match(r"/([^@\s]+)", rawCmd[:text])[1]) #match till first @ or space
-                cmdPara = string(match(r"\s(.*)$", rawCmd[:text])[1]) #match from first space to end
             catch
-                #= @warn backtrace() =#
+                @warn "Not a command start with /"
                 continue
             end
-            println("namc: $cmdName, para: $cmdPara") #debug
+
+            try
+                cmdPara = string(match(r"\s(.*)$", rawCmd[:text])[1]) #match from first space to end
+            catch
+                cmdPara = " "
+                @warn "Command may got passed empty parameter"
+            end
+            #= println("namc: $cmdName, para: $cmdPara") #debug =#
             if haskey(textHandle, cmdName)
                 reply = textHandle[cmdName](cmdPara)
                 reply = HTTP.URIs.escapeuri(reply) #encode for GET purpose
