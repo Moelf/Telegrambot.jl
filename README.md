@@ -9,7 +9,7 @@ A julia wrapper for [telegram](https://telegram.im) api (mostly replying command
 
 
 ## Basic Usage
-
+For guide on telegram bot creation and api, check [this](https://core.telegram.org/bots#3-how-do-i-create-a-bot) out.
 
 ```julia
 import Telegrambot
@@ -29,3 +29,8 @@ txtCmds["start"] = welcomeMsg # this will respond to '/start'
 
 Telegrambot.startBot(botApi; textHandle = txtCmds)
 ```
+## To-Do
+- Add inline command function
+- Add function to quote reply to a message
+- Add function to reply with a file/image
+- Add function to serve as a IRC-Tg bot
