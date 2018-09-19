@@ -1,4 +1,4 @@
-module telegrambot
+module Telegrambot
 
 import HTTP, Test, JSON
 export startBot, getUpdates, sendText

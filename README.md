@@ -1,4 +1,4 @@
-# telegrambot.jl
+# Telegrambot.jl
 A julia wrapper for [telegram](https://telegram.im) api (mostly replying commands consists text).
 
 | **Build Status**                                                                                |
@@ -12,7 +12,7 @@ A julia wrapper for [telegram](https://telegram.im) api (mostly replying command
 
 
 ```julia
-import telegrambot
+import Telegrambot
 botApi = "<your_api_>"
 
 function welcomeMsg()
@@ -27,5 +27,5 @@ txtCmds = Dict()
 txtCmds["repeat_msg"] = echo #this will respond to '/repeat_msg <any thing>'
 txtCmds["start"] = welcomeMsg # this will respond to '/start'
 
-telegrambot.startBot(botApi; textHandle = txtCmds)
+Telegrambot.startBot(botApi; textHandle = txtCmds)
 ```
