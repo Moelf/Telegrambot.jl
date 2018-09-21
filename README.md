@@ -12,11 +12,11 @@ A julia wrapper for [telegram](https://telegram.im) api (mostly replying command
 For guide on telegram bot creation and api, check [this](https://core.telegram.org/bots#3-how-do-i-create-a-bot) out.
 
 ```julia
-import Telegrambot, Telegrambot.InlineQueryResultArticle
-import UUIDs
-botApi = "<your_api_>"
+using Telegrambot
+using UUIDs
+botApi = "bot<your_api_key>"
 
-function welcomeMsg()
+function welcomeMsg(incoming::AbstractString)
     return "Welcome to my awesome bot"
 end
 
@@ -35,7 +35,7 @@ function inlineQueryHandle(s)
                "Lowercase", lowercase(s)) ]
 end
 
-Telegrambot.startBot(botApi; textHandle = txtCmds, inlineQueryHandle=inlineQueryHandle)
+startBot(botApi; textHandle = txtCmds, inlineQueryHandle=inlineQueryHandle)
 ```
 ## To-Do
 - Add function to quote reply to a message

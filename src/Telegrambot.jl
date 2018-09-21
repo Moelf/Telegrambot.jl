@@ -1,6 +1,7 @@
 module Telegrambot
 
 import HTTP, Test, JSON
+export InlineQueryResultArticle
 export startBot, getUpdates, sendText
 
 struct InlineQueryResultArticle
