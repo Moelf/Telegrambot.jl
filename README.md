@@ -28,16 +28,15 @@ txtCmds = Dict()
 txtCmds["repeat_msg"] = echo #this will respond to '/repeat_msg <any thing>'
 txtCmds["start"] = welcomeMsg # this will respond to '/start'
 
-function inlineQueryHandle(s)
-	return [InlineQueryResultArticle(string(UUIDs.uuid4()),
-               "Uppercase", uppercase(s)),
-			InlineQueryResultArticle(string(UUIDs.uuid4()),
-               "Lowercase", lowercase(s)) ]
-end
+inlineOpts = Dict() #Title, result pair
+inlineOpts["Make Uppercase"] = uppercase #this will generate an pop-up named Make Uppercase and upon tapping return uppercase(<user_input>)
 
-startBot(botApi; textHandle = txtCmds, inlineQueryHandle=inlineQueryHandle)
+#uppercase is a function that takes a string and return the uppercase version of that string
+
+startBot(botApi; textHandle = txtCmds, inlineQueryHandle=inlineOpts)
 ```
 ## To-Do
-- Add function to quote reply to a message
-- Add function to reply with a file/image
-- Add function to serve as a IRC-Tg bot
+- [x] Add Inline query respond 
+- [ ] Add function to quote reply to a message
+- [ ] Add function to reply with a file/image
+- [ ] Add function to serve as a IRC-Tg bot
