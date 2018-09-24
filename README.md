@@ -13,16 +13,11 @@ For guide on telegram bot creation and api, check [this](https://core.telegram.o
 
 ```julia
 using Telegrambot
-using UUIDs
 botApi = "bot<your_api_key>"
 
-function welcomeMsg(incoming::AbstractString)
-    return "Welcome to my awesome bot"
-end
+welcomeMsg(incoming::AbstractString) = "Welcome to my awesome bot"
 
-function echo(incoming::AbstractString)
-    return incoming
-end
+echo(incoming::AbstractString) = incoming
 
 txtCmds = Dict()
 txtCmds["repeat_msg"] = echo #this will respond to '/repeat_msg <any thing>'
