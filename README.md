@@ -3,7 +3,7 @@ A julia wrapper for [telegram](https://telegram.im) api (mostly replying command
 
 | **Build Status**                                                                                |
 |:-----------------------------------------------------------------------------------------------:|
-|[![Build Status](https://travis-ci.org/Moelf/telegrambot.jl.svg?branch=master)](https://travis-ci.org/Moelf/Telegrambot.jl)|
+|[![Build Status](https://travis-ci.org/Moelf/Telegrambot.jl.svg?branch=master)](https://travis-ci.org/Moelf/Telegrambot.jl)|
 
 **Installation**: note yet in Julia registry so you will need to clone this repo and follow [this guide](https://docs.julialang.org/en/v1.0.0/stdlib/Pkg/#Using-someone-else's-project-1)
 
