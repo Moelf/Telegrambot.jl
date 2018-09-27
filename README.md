@@ -5,8 +5,12 @@ A julia wrapper for [telegram](https://telegram.im) api (mostly replying command
 |:-----------------------------------------------------------------------------------------------:|
 |[![Build Status](https://travis-ci.org/Moelf/Telegrambot.jl.svg?branch=master)](https://travis-ci.org/Moelf/Telegrambot.jl)|
 
-**Installation**: note yet in Julia registry so you will need to clone this repo and follow [this guide](https://docs.julialang.org/en/v1.0.0/stdlib/Pkg/#Using-someone-else's-project-1)
+## Installation
 
+The package is registered in `METADATA.jl` and can be installed with `Pkg.add`, or in `REPL` by pressing `] add Telegrambot`.
+```julia
+julia> Pkg.add("Telegrambot")
+```
 
 ## Basic Usage
 For guide on telegram bot creation and api, check [this](https://core.telegram.org/bots#3-how-do-i-create-a-bot) out.
