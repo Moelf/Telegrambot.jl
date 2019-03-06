@@ -15,6 +15,8 @@ julia> Pkg.add("Telegrambot")
 ## Basic Usage
 For guide on telegram bot creation and api, check [this](https://core.telegram.org/bots#3-how-do-i-create-a-bot) out.
 
+**NOTICE**: Due to the way `botfather` present you key, don't forget to add "bot", I shall add a warning and try to be smart.
+
 ```julia
 using Telegrambot
 botApi = "bot<your_api_key>"
