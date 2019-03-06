@@ -1,5 +1,7 @@
 # Telegrambot.jl
-A julia wrapper for [telegram](https://telegram.im) api (mostly replying commands consists text).
+A Julia Telegram Bot Api wapper
+[check out telegram bot api](https://telegram.im) api (mostly built around commands with text).
+
 
 | **Build Status**                                                                                |
 |:-----------------------------------------------------------------------------------------------:|
