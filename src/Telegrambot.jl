@@ -86,8 +86,13 @@ function sendText(botApi, id, text)
     text = text |> HTTP.URIs.escapeuri #encode for GET purpose
     id = id |> HTTP.URIs.escapeuri #encode for GET purpose
     tQuery="""chat_id=$id&text=$text"""
-    updates = HTTP.request("GET","https://api.telegram.org/$botApi/sendMessage";query="$tQuery")
-    sleep(0.1)
+    try
+        updates = HTTP.request("GET","https://api.telegram.org/$botApi/sendMessage";query="$tQuery")
+    catch e
+        errmsg = JSON.parse(String(e.response.body))
+        @warn "$(errmsg["description"]): $id"
+    end
+    sleep(0.01)
 end
 
 # GET request sendig to telegram for inline respond
@@ -96,7 +101,7 @@ function answerInlineQuery(botApi, query_id, results::String)
     query_id = query_id |> HTTP.URIs.escapeuri #encode for GET purpose
     tQuery="""inline_query_id=$query_id&results=$results"""
     updates = HTTP.request("GET","https://api.telegram.org/$botApi/answerInlineQuery";query="$tQuery")
-    sleep(0.1)
+    sleep(0.01)
 end
 
 #encode a list of InlineQueryResultArticle according to telegram api JSON format
