@@ -10,7 +10,7 @@ struct InlineQueryResultArticle
     message::String
 end
 
-function startBot(botApi=""; textHandle=Dict(), inlineQueryHandle=Dict())
+function startBot(botApi=""; textHandle=Dict(), textHandleReplyMessage=Dict(), inlineQueryHandle=Dict())
     !isempty(textHandle) || error("You need to pass repond function as parameter to startBot")
     # in case people put in what botfather spits
     botApi = botApi[1:3]=="bot" ? botApi : "bot" * botApi
@@ -48,12 +48,20 @@ function startBot(botApi=""; textHandle=Dict(), inlineQueryHandle=Dict())
                     #= @warn "Command may got passed empty parameter" =#
                 end
                 if haskey(textHandle, cmdName)
-                    reply = textHandle[cmdName](cmdPara)  #encode for GET purpose
+                    reply = textHandle[cmdName](cmdPara, msg)  #encode for GET purpose
                     reply_id = string(msg["chat"]["id"])  #encode for GET purpose
                     # all space msg is not allower either
                     !isempty(strip(reply)) || (@warn " message must be non-empty, also can't be all spaces";
                                                reply = "Using the command incorrectly or command is bad")
                     sendText(botApi, reply_id, reply)
+                elseif haskey(textHandleReplyMessage, cmdName)
+                    reply = textHandleReplyMessage[cmdName](cmdPara, msg)  #encode for GET purpose
+                    reply_id = string(msg["chat"]["id"])  #encode for GET purpose
+                    message_id = string(msg["message_id"])  #encode for GET purpose 
+                    # all space msg is not allower either
+                    !isempty(strip(reply)) || (@warn " message must be non-empty, also can't be all spaces";
+                                               reply = "Using the command incorrectly or command is bad")
+                    sendText(botApi, reply_id,reply, message_id = message_id)
                 else
                     reply_id = string(msg["chat"]["id"])  #encode for GET purpose
                     no_cmd_prompt= "The command $cmdName is not found" 
@@ -81,11 +89,12 @@ function startBot(botApi=""; textHandle=Dict(), inlineQueryHandle=Dict())
 end
 
 # GET request sendig to telegram for text repond
-function sendText(botApi, id, text)
+function sendText(botApi, id, text; message_id = "")
     # can't pass empty text, results 400
     text = text |> HTTP.URIs.escapeuri #encode for GET purpose
     id = id |> HTTP.URIs.escapeuri #encode for GET purpose
-    tQuery="""chat_id=$id&text=$text"""
+    tQuery = ""
+    message_id == "" ? tQuery="""chat_id=$id&text=$text""" : tQuery="""chat_id=$id&text=$text&reply_to_message_id=$message_id"""
     try
         updates = HTTP.request("GET","https://api.telegram.org/$botApi/sendMessage";query="$tQuery")
     catch e
@@ -94,6 +103,7 @@ function sendText(botApi, id, text)
     end
     sleep(0.01)
 end
+
 
 # GET request sendig to telegram for inline respond
 function answerInlineQuery(botApi, query_id, results::String)
