@@ -1,6 +1,7 @@
 module Telegrambot
 
-import HTTP, Test, JSON, UUIDs
+import HTTP, JSON, UUIDs
+
 export InlineQueryResultArticle
 export startBot, getUpdates, sendText
 
@@ -12,6 +13,7 @@ end
 
 function startBot(botApi=""; textHandle=Dict(), textHandleReplyMessage=Dict(), inlineQueryHandle=Dict())
     !isempty(textHandle) || error("You need to pass repond function as parameter to startBot")
+
     # in case people put in what botfather spits
     botApi = botApi[1:3]=="bot" ? botApi : "bot" * botApi
     # to be used to clear msg que
@@ -21,7 +23,7 @@ function startBot(botApi=""; textHandle=Dict(), textHandleReplyMessage=Dict(), i
     while true
         msgQuery = getUpdates(botApi,offset)
         if length(msgQuery)==0
-            #this repeast every timeout seconds, now 30
+            #this repeast every timeout seconds, now 10
             continue 
         end
         offset = maximum([ i["update_id"] for i in msgQuery ]) + 1 #update to clear the msg query next loop
@@ -32,7 +34,7 @@ function startBot(botApi=""; textHandle=Dict(), textHandleReplyMessage=Dict(), i
             # if this is a message
             if haskey(rawCmd, "message")
                 msg = rawCmd["message"]
-                cmdName=" "
+                cmdName = " "
                 cmdPara = " "
                 try
                     cmdName = string(match(r"/([^@\s]+)", msg["text"])[1]) #match till first @ or space
@@ -53,6 +55,7 @@ function startBot(botApi=""; textHandle=Dict(), textHandleReplyMessage=Dict(), i
                     # all space msg is not allower either
                     !isempty(strip(reply)) || (@warn " message must be non-empty, also can't be all spaces";
                                                reply = "Using the command incorrectly or command is bad")
+
                     sendText(botApi, reply_id, reply)
                 elseif haskey(textHandleReplyMessage, cmdName)
                     reply = textHandleReplyMessage[cmdName](cmdPara, msg)  #encode for GET purpose
@@ -61,10 +64,11 @@ function startBot(botApi=""; textHandle=Dict(), textHandleReplyMessage=Dict(), i
                     # all space msg is not allower either
                     !isempty(strip(reply)) || (@warn " message must be non-empty, also can't be all spaces";
                                                reply = "Using the command incorrectly or command is bad")
+
                     sendText(botApi, reply_id,reply, message_id = message_id)
                 else
                     reply_id = string(msg["chat"]["id"])  #encode for GET purpose
-                    no_cmd_prompt= "The command $cmdName is not found" 
+                    no_cmd_prompt = "The command $cmdName is not found" 
                     sendText(botApi, reply_id, no_cmd_prompt)
                     #= @warn backtrace() =#
                 end
@@ -128,7 +132,7 @@ end
 function getUpdates(botApi="", offset=0)
     # this is already a long-poll handled on telegram's side
     # telling telegram how long we want to timeout once
-    tQuery="""timeout=30&offset=$offset"""
+    tQuery="""timeout=10&offset=$offset"""
     updates = JSON.parse(String(HTTP.request("GET","https://api.telegram.org/$botApi/getUpdates";query="$tQuery").body))
     result = updates["result"]
     return result
