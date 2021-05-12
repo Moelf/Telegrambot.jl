@@ -133,7 +133,7 @@ function getUpdates(botApi="", offset=0)
     # this is already a long-poll handled on telegram's side
     # telling telegram how long we want to timeout once
     tQuery="""timeout=10&offset=$offset"""
-    updates = JSON.parse(String(HTTP.request("GET","https://api.telegram.org/$botApi/getUpdates";query="$tQuery").body))
+    updates = JSON.parse(String(HTTP.request("GET","https://api.telegram.org/bot$botApi/getUpdates";query="$tQuery").body))
     result = updates["result"]
     return result
 end
