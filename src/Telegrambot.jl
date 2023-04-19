@@ -62,10 +62,12 @@ function startBot(botApi=""; textHandle=Dict(), textHandleReplyMessage=Dict(), i
                     reply_id = string(msg["chat"]["id"])  #encode for GET purpose
                     message_id = string(msg["message_id"])  #encode for GET purpose 
                     # all space msg is not allower either
-                    !isempty(strip(reply)) || (@warn " message must be non-empty, also can't be all spaces";
-                                               reply = "Using the command incorrectly or command is bad")
+                    if isnothing(reply) || isempty(strip(reply))
+                        @warn " message must be non-empty, also can't be all spaces"
+                        reply = "Using the command incorrectly or command is bad"
+                    end
 
-                    sendText(botApi, reply_id,reply, message_id = message_id)
+                    sendText(botApi, reply_id, reply, message_id = message_id)
                 else
                     reply_id = string(msg["chat"]["id"])  #encode for GET purpose
                     no_cmd_prompt = "The command $cmdName is not found" 
