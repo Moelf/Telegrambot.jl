@@ -1,7 +1,7 @@
 name = "Telegrambot"
 uuid = "accb34f3-11fe-547f-b953-62fd05adad84"
 authors = ["Moelf <jerryling315@gmail.com>"]
-version = "0.1.6"
+version = "0.1.7"
 
 [deps]
 HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
