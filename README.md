@@ -1,3 +1,7 @@
+# Archived
+
+**Recommand** to use https://github.com/Arkoniak/Telegram.jl instead.
+
 # Telegrambot.jl
 A Julia Telegram Bot Api wapper
 [check out telegram bot api](https://core.telegram.org/bots/api) api (mostly built around commands with text).
